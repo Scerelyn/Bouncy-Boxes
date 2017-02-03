@@ -56,8 +56,8 @@ public class Entity {
 			}
 		} while (this.hitbox.intersects(e.hitbox));
 	}
-	/*
-	public int outOfBoundsBounce(int xBound, int yBound){
+	
+	public int outOfBoundsRemove(int xBound, int yBound){
 		int upLeftX = this.getX();
 		int upLeftY = this.getY();
 		int downLeftX = this.getX();
@@ -66,15 +66,8 @@ public class Entity {
 		int upRightY = this.getY();
 		int downRightX = (int)this.getHitbox().getMaxX();
 		int downRightY = (int)this.getHitbox().getMaxY();
-		double percTolerance = 0.3;
+		double percTolerance = 0.3; //percent in decimal for of how much of a side needs to be outside before deletion
 		
-		if(x < 0 || x + hitbox.getWidth() > xBound){
-			vel = new Velocity(-1*vel.getxDir(),vel.getyDir(),vel.getMagnitude());
-		}
-		if(y < 0 || y + hitbox.getHeight() > yBound){
-			vel = new Velocity(vel.getxDir(),-1*vel.getyDir(),vel.getMagnitude());
-		}
-		this.move();
 		if(	upLeftX < 0 - this.hitbox.getWidth()*percTolerance || downLeftX < 0 - this.hitbox.getWidth()*percTolerance || upRightX < 0 - this.hitbox.getWidth()*percTolerance || downRightX < 0 - this.hitbox.getWidth()*percTolerance ||
 				upLeftX > xBound + this.hitbox.getWidth()*percTolerance || downLeftX > xBound + this.hitbox.getWidth()*percTolerance || upRightX > xBound + this.hitbox.getWidth()*percTolerance || downRightX > xBound + this.hitbox.getWidth()*percTolerance ||
 				upLeftY < 0 - this.hitbox.getHeight()*percTolerance || downLeftY < 0 - this.hitbox.getHeight()*percTolerance || upRightY < 0 - this.hitbox.getHeight()*percTolerance || downRightY < 0 - this.hitbox.getHeight()*percTolerance ||
@@ -84,7 +77,7 @@ public class Entity {
 		}
 		return 0;
 	}
-	*/
+	
 	
 	public void setVelocity(Velocity v){
 		this.vel = v;

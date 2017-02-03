@@ -29,10 +29,10 @@ public class Refresher extends TimerTask{
 		}
 		ArrayList<Entity> toRemove = new ArrayList<>();
 		for(Entity e : vis.getEntityList()){
-//			if(e.outOfBoundsBounce(vis.getMaxWidth(), vis.getMaxWidth()) == 1){
-//				toRemove.add(e);
-//				System.out.println("out of bounds square removed");
-//			}
+			if(e.outOfBoundsRemove(vis.getMaxWidth(), vis.getMaxWidth()) == 1){
+				toRemove.add(e);
+				System.out.println("out of bounds square removed");
+			}
 			e.move();
 		}
 		for(Entity e : toRemove){
