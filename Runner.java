@@ -17,7 +17,7 @@ public class Runner {
 		int boxLength = 90;
 
 		v.getEntityList().add(new Entity(200,0,boxLength,boxLength,Color.CYAN));
-		v.getEntityList().get(0).setVelocity( new Velocity(Math.random() * 2*Math.PI,2) );
+		v.getEntityList().get(0).setVelocity( new Velocity(30*Math.PI/180,2) );
 		
 //		v.getEntityList().add(new Entity(200,800,boxLength,boxLength,Color.ORANGE));
 //		v.getEntityList().get(1).setVelocity( new Velocity(Math.random() * 2*Math.PI,15) );
@@ -65,11 +65,11 @@ public class Runner {
 				v.getEntityList().add( new Entity((int)v.getMousePlaced().getX(), (int)v.getMousePlaced().getY(), boxLength, boxLength, v.getMousePlacedColor()) );
 				double lineLength = Point2D.distance(me.getX()-12, me.getY()-45, v.getMousePlaced().getCenterX(), v.getMousePlaced().getCenterY());
 				double mag = lineLength/Visual.DRAWN_VECTOR_MAGNITUDE_MULTIPLIER;
-				double vectX = Math.abs( me.getX()-12 - v.getMousePlaced().getCenterX())*lineLength;
-				double vectY = Math.abs( me.getY()-45 - v.getMousePlaced().getCenterY())*lineLength;
+				double vectX = Math.abs( me.getX()-12 - v.getMousePlaced().getCenterX());
+				double vectY = Math.abs( me.getY()-45 - v.getMousePlaced().getCenterY());
 				double angle = Math.atan( vectY/vectX );
 				if(Double.isNaN(angle) || (Double.isNaN(vectX) &&  Double.isNaN(vectY))){
-					v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( new Velocity(0, 0) );
+					v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( Velocity.ZERO_VECTOR );
 				} else if(vectX < 1e-14){ //result in atan being NaN if this is true, or almost NaN, since division by zero
 					if(vectY < 0){
 						v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( new Velocity(1.5*Math.PI, mag) ); //recall that atan retuns angles from pi/2 to -pi/2, which is why the + pi/2 shit happens and a bunch of ifs are used
@@ -80,17 +80,18 @@ public class Runner {
 					if(me.getY()-45 > v.getMousePlaced().getCenterY()){ //bottom
 						v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( new Velocity(angle+(Math.PI), mag) );
 					} else { //top
-						v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( new Velocity(( (Math.PI/2)-angle )+(Math.PI/2), mag) ); //had to invert the angle for some reason
+						v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( new Velocity( (Math.PI)-angle, mag) ); //had to invert the angle for some reason
 					}
 				} else { //right
 					if (me.getY() - 45 > v.getMousePlaced().getCenterY()) { // bottom
-						v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( new Velocity(( (Math.PI/2)-angle )+(1.5*Math.PI), mag) );
+						v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( new Velocity(( (2*Math.PI)-angle ), mag));
 					} else { // top
 						v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( new Velocity(angle, mag) );
 					}
 				}
 				v.setMousePlaced(null);
 				v.setMousePlacedLine(null);
+				System.out.println( v.getEntityList().get( v.getEntityList().size()-1 ).getVel() );
 			}
 		});
 		jf.addMouseMotionListener(new MouseMotionListener(){

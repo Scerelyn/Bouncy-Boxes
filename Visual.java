@@ -43,9 +43,10 @@ public class Visual extends JComponent {
 			g2.setPaint(e.getColor());
 			g2.fill(e.getVisible());
 			g2.setPaint(Color.BLACK);
+			//System.out.println(e.getVel());
 			g2.drawLine((int)e.getHitbox().getCenterX(), (int)e.getHitbox().getCenterY(), 
-					(int)e.getHitbox().getCenterX() + ( (int)(e.getVel().getxDir()*e.getVel().getMagnitude()) ) * DRAWN_VECTOR_MAGNITUDE_MULTIPLIER,
-					(int)e.getHitbox().getCenterY() + ( (int)(e.getVel().getyDir()*e.getVel().getMagnitude()) ) * DRAWN_VECTOR_MAGNITUDE_MULTIPLIER
+					(int)Math.round(e.getHitbox().getCenterX()) + ( (int)Math.round(e.getVel().getxDir()*e.getVel().getMagnitude()) ) * DRAWN_VECTOR_MAGNITUDE_MULTIPLIER,
+					(int)Math.round(e.getHitbox().getCenterY()) + ( (int)Math.round(e.getVel().getyDir()*e.getVel().getMagnitude()) ) * DRAWN_VECTOR_MAGNITUDE_MULTIPLIER
 					); //velocity line
 		}
 		

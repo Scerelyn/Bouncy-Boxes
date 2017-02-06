@@ -26,11 +26,11 @@ public class Entity {
 	 * Moves the entity one "step" based on its velocity vector
 	 */
 	public void move(){
-		shadow = new Rectangle(this.x, this.y, (int)this.visible.getWidth(), (int)this.visible.getHeight());
-		this.visible.translate((int)(vel.getMagnitude() * vel.getxDir()), (int)(vel.getMagnitude() * vel.getyDir()));
-		this.hitbox.translate((int)(vel.getMagnitude() * vel.getxDir()), (int)(vel.getMagnitude() * vel.getyDir()));
-		this.x += (int)(vel.getMagnitude() * vel.getxDir());
-		this.y += (int)(vel.getMagnitude() * vel.getyDir());
+		shadow = new Rectangle((int)this.x, (int)this.y, (int)Math.round(this.visible.getWidth()), (int)Math.round(this.visible.getHeight()));
+		this.visible.translate((int)Math.round(vel.getMagnitude() * vel.getxDir()), (int)Math.round(vel.getMagnitude() * vel.getyDir()));
+		this.hitbox.translate((int)Math.round(vel.getMagnitude() * vel.getxDir()), (int)Math.round(vel.getMagnitude() * vel.getyDir()));
+		this.x += Math.round(vel.getMagnitude() * vel.getxDir());
+		this.y += Math.round(vel.getMagnitude() * vel.getyDir());
 	}
 	
 	/**
@@ -64,13 +64,13 @@ public class Entity {
 				if (new Random().nextBoolean()) {
 					this.move(); //moves if the boxes are still intersecting. really shit way to go about it because of the teleporty bullshit this results in
 					counter++;
-					if(counter >= 50){
+					if(counter >= 100){
 						return true;
 					}
 				} else {
 					e.move(); 
 					counter++;
-					if(counter >= 50){
+					if(counter >= 100){
 						return true;
 					}
 				}

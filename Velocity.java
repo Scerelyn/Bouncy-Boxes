@@ -23,13 +23,13 @@ public class Velocity {
 	public double getAngle(){
 		if(xDir >= 0 && xDir <= 1e-14 && yDir >= 0 && yDir <= 1e-14){
 			throw new ArithmeticException("Failed to get angle, Zero vector found, what the hell");
-		} else if(xDir <= 1e-14){
+		} else if(xDir <= 1e-14 && xDir > 0){
 			if(yDir > 0){
 				return Math.PI/2;
 			} else if(yDir < 0){
 				return 3*Math.PI/2;
 			}
-		} else if(yDir <= 1e-14){
+		} else if(yDir <= 1e-14 && yDir > 0){
 			if(xDir > 0){
 				return 0;
 			} else if(xDir < 0){
@@ -37,11 +37,11 @@ public class Velocity {
 			}
 		}
 		//hope you love teritaries because i kinda do(n't)
-		return (yDir < 0 && xDir > 0) || (yDir > 0 && xDir < 0)
-				? Math.atan(yDir/xDir) + Math.PI //Qudrants II and III
-				: (xDir > 0 && yDir < 0)
-					? Math.atan(yDir/xDir) + 2*Math.PI //Quadrant IV
-					: Math.atan(yDir/xDir); //quadrant I
+		return (-yDir < 0 && xDir > 0) || (-yDir > 0 && xDir < 0)
+				? Math.atan(-yDir/xDir) + Math.PI //Qudrants II and III
+				: (xDir > 0 && -yDir < 0)
+					? Math.atan(-yDir/xDir) + 2*Math.PI //Quadrant IV
+					: Math.atan(-yDir/xDir); //quadrant I
 	}
 
 	public double getxDir() {
@@ -65,5 +65,10 @@ public class Velocity {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString(){
+		return this.magnitude + "*<" + xDir + "," + yDir + "> or " + this.magnitude + "@" + this.getAngle();
 	}
 }
