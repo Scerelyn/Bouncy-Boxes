@@ -14,6 +14,8 @@ public class Velocity {
 		//System.out.println(xDir + " " + yDir + " " + getAngle() + " " + mag);
 	}
 	
+	//this constuctor should be used to maintain that cos^2(x) + sin^2(x) = 1. weird shit may happen if this isnt followed
+	//its also more intuitive to use
 	public Velocity(double angle, double mag){
 		this(Math.cos(angle),-Math.sin(angle),mag);
 	}
@@ -34,6 +36,7 @@ public class Velocity {
 				return Math.PI;
 			}
 		}
+		//hope you love teritaries because i kinda do(n't)
 		return (yDir < 0 && xDir > 0) || (yDir > 0 && xDir < 0)
 				? Math.atan(yDir/xDir) + Math.PI //Qudrants II and III
 				: (xDir > 0 && yDir < 0)

@@ -15,6 +15,9 @@ public class StaticEntity extends Entity{
 	@Override
 	public void move(){}
 	
+	/**
+	 * Inmovable object react. Should be used with a non static entity sent in. Shouldnt break since move() and setVelocity do nothing() 
+	 */
 	@Override
 	public void collisionReact(Entity e) {
 		//imagine spending 4 hours pondering on a 5 line solution, yeesh

@@ -22,6 +22,9 @@ public class Entity {
 		this.y = y;
 	}
 	
+	/**
+	 * Moves the entity one "step" based on its velocity vector
+	 */
 	public void move(){
 		shadow = new Rectangle(this.x, this.y, (int)this.visible.getWidth(), (int)this.visible.getHeight());
 		this.visible.translate((int)(vel.getMagnitude() * vel.getxDir()), (int)(vel.getMagnitude() * vel.getyDir()));
@@ -29,12 +32,16 @@ public class Entity {
 		this.x += (int)(vel.getMagnitude() * vel.getxDir());
 		this.y += (int)(vel.getMagnitude() * vel.getyDir());
 	}
-
+	
+	/**
+	 * Called when a collision has been detected. This method does not check for collsions, This does the reaction part
+	 * @param e The entitity that this collided with
+	 */
 	public void collisionReact(Entity e) {
-		if (e instanceof StaticEntity) {
+		if (e instanceof StaticEntity) { //make sure to use the right override
 			e.collisionReact(this);
 		} else {
-			// the first two ifs are for momentum, somewhat (hardly) accurate
+			// the first two ifs are for momentum, somewhat (hardly) accurate. Didnt feel like dealing with momentum AND kinetic energy i dont have mass implemented yet
 			if (Math.abs(this.vel.getAngle() - e.vel.getAngle()) <= Math.PI * 0.25) { // same direction angle
 				// System.out.println("rear end collision");
 				double tempMag = e.vel.getMagnitude();
@@ -52,14 +59,20 @@ public class Entity {
 			}
 			do {
 				if (new Random().nextBoolean()) {
-					this.move();
+					this.move(); //moves if the boxes are still intersecting. really shit way to go about it because of the teleporty bullshit this results in
 				} else {
-					e.move(); //results in teleporty bullshit, please fix maybe
+					e.move(); 
 				}
 			} while (this.hitbox.intersects(e.hitbox));
 		}
 	}
 	
+	/**
+	 * Removes an entity based on how much of the boxes sides are out of bounds. percTolerance determines this
+	 * @param xBound The maximum bound of Visual the entity is found in
+	 * @param yBound The minimum bound of Visual the entity is found in
+	 * @return 1 if the entity if out of bounds, 0 if it isnt
+	 */
 	public int outOfBoundsRemove(int xBound, int yBound){
 		int upLeftX = this.getX();
 		int upLeftY = this.getY();

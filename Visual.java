@@ -32,12 +32,12 @@ public class Visual extends JComponent {
 		g2.setPaint(Color.gray);
 		g2.fill( new Rectangle(0,0,this.maxWidth,this.maxHeight) ); //background
 		
-		g2.setPaint(Color.DARK_GRAY);
+		g2.setPaint(Color.DARK_GRAY); //boundry static entities
 		for(StaticEntity se : boundries){
 			g2.fill(se.getVisible());
 		}
 		
-		for(Entity e : things){
+		for(Entity e : things){ //each actaully entity
 			g2.setPaint(Color.BLACK.brighter().brighter());
 			g2.fill(e.getShadow());
 			g2.setPaint(e.getColor());
@@ -49,8 +49,8 @@ public class Visual extends JComponent {
 					); //velocity line
 		}
 		
-		ArrayList<CollisionFX> toRemove = new ArrayList<>();
-		for(CollisionFX col : hits){
+		ArrayList<CollisionFX> toRemove = new ArrayList<>(); //list of collision effects to remove. cant remove in the for loop
+		for(CollisionFX col : hits){ //collision effects
 			g2.setPaint(CollisionFX.hitColor);
 			g2.fill(col.getHit());
 			col.decrementTTL();
@@ -62,7 +62,7 @@ public class Visual extends JComponent {
 			hits.remove(col);
 		}
 		toRemove.clear();
-		if(mousePlaced != null && mousePlacedColor != null){
+		if(mousePlaced != null && mousePlacedColor != null){ //the mouse placed box ghost thing
 			g2.setPaint( mousePlacedColor );
 			g2.fill(mousePlaced);
 		}
