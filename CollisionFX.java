@@ -8,7 +8,7 @@ public class CollisionFX {
 	private int TTL; //frames to live
 	public CollisionFX(Rectangle one, Rectangle two){
 		hit = one.intersection(two);
-		TTL = 5;
+		TTL = 60;
 	}
 	public Rectangle getHit() {
 		return hit;

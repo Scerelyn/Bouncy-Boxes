@@ -10,6 +10,11 @@ public class Visual extends JComponent {
 	private ArrayList<Entity> things = new ArrayList<>();
 	private ArrayList<CollisionFX> hits = new ArrayList<>();
 	private final int maxWidth, maxHeight;
+	public static final int DRAWN_VECTOR_MAGNITUDE_MULTIPLIER = 20;
+	private Rectangle mousePlaced = null;
+	private Color mousePlacedColor = null;
+	private Line2D mousePlacedLine = null;
+	
 	public Visual(int width, int height){
 		this.setBounds(0, 0, width, height);
 		this.maxHeight = height;
@@ -39,8 +44,8 @@ public class Visual extends JComponent {
 			g2.fill(e.getVisible());
 			g2.setPaint(Color.BLACK);
 			g2.drawLine((int)e.getHitbox().getCenterX(), (int)e.getHitbox().getCenterY(), 
-					(int)e.getHitbox().getCenterX() + ( (int)(e.getVel().getxDir()*e.getVel().getMagnitude()) ) * 20,
-					(int)e.getHitbox().getCenterY() + ( (int)(e.getVel().getyDir()*e.getVel().getMagnitude()) ) * 20
+					(int)e.getHitbox().getCenterX() + ( (int)(e.getVel().getxDir()*e.getVel().getMagnitude()) ) * DRAWN_VECTOR_MAGNITUDE_MULTIPLIER,
+					(int)e.getHitbox().getCenterY() + ( (int)(e.getVel().getyDir()*e.getVel().getMagnitude()) ) * DRAWN_VECTOR_MAGNITUDE_MULTIPLIER
 					); //velocity line
 		}
 		
@@ -57,6 +62,14 @@ public class Visual extends JComponent {
 			hits.remove(col);
 		}
 		toRemove.clear();
+		if(mousePlaced != null && mousePlacedColor != null){
+			g2.setPaint( mousePlacedColor );
+			g2.fill(mousePlaced);
+		}
+		if(mousePlacedLine != null){
+			g2.setPaint(Color.BLACK);
+			g2.drawLine((int)mousePlacedLine.getX1(), (int)mousePlacedLine.getY1(), (int)mousePlacedLine.getX2(), (int)mousePlacedLine.getY2());
+		}
 	}
 	
 	public ArrayList<Entity> getEntityList(){
@@ -78,4 +91,30 @@ public class Visual extends JComponent {
 	public StaticEntity[] getBoundries() {
 		return boundries;
 	}
+
+	public Rectangle getMousePlaced() {
+		return mousePlaced;
+	}
+
+	public Color getMousePlacedColor() {
+		return mousePlacedColor;
+	}
+
+	public void setMousePlaced(Rectangle mousePlaced) {
+		this.mousePlaced = mousePlaced;
+	}
+
+	public void setMousePlacedColor(Color mousePlacedColor) {
+		this.mousePlacedColor = mousePlacedColor;
+	}
+
+	public Line2D getMousePlacedLine() {
+		return mousePlacedLine;
+	}
+
+	public void setMousePlacedLine(Line2D mousePlacedLine) {
+		this.mousePlacedLine = mousePlacedLine;
+	}
+	
+	
 }

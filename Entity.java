@@ -31,30 +31,33 @@ public class Entity {
 	}
 
 	public void collisionReact(Entity e) {
-		//the first two ifs are for momentum, somewhat (hardly) accurate
-		if(Math.abs( this.vel.getAngle() - e.vel.getAngle() ) <= Math.PI*0.25){ //same direction angle
-			System.out.println("rear end collision");
-			double tempMag = e.vel.getMagnitude();
-			e.vel = new Velocity(e.vel.getxDir(), e.vel.getyDir(), this.vel.getMagnitude());
-			this.vel = new Velocity(this.vel.getxDir(), this.vel.getyDir(), tempMag);
-
-		} else if (Math.abs((((this.vel.getAngle() + Math.PI)) % (2.0 * Math.PI)) - e.vel.getAngle()) <= Math.PI * 0.25) { // opposite
-			System.out.println("headon collision");
-			double tempMag = e.vel.getMagnitude();
-			e.vel = new Velocity(-1*e.vel.getxDir(), -1*e.vel.getyDir(), this.vel.getMagnitude());
-			this.vel = new Velocity(-1*this.vel.getxDir(), -1*this.vel.getyDir(), tempMag);
-		} 
-		else {
-			this.vel = new Velocity(-1*this.vel.getxDir(), -1*this.vel.getyDir(), this.vel.getMagnitude());
-			e.vel = new Velocity(-1*e.vel.getxDir(), -1*e.vel.getyDir(), e.vel.getMagnitude());
-		}
-		do {
-			if(new Random().nextBoolean()){				
-				this.move();
+		if (e instanceof StaticEntity) {
+			e.collisionReact(this);
+		} else {
+			// the first two ifs are for momentum, somewhat (hardly) accurate
+			if (Math.abs(this.vel.getAngle() - e.vel.getAngle()) <= Math.PI * 0.25) { // same direction angle
+				// System.out.println("rear end collision");
+				double tempMag = e.vel.getMagnitude();
+				e.vel = new Velocity(e.vel.getxDir(), e.vel.getyDir(), this.vel.getMagnitude());
+				this.vel = new Velocity(this.vel.getxDir(), this.vel.getyDir(), tempMag);
+			} else if (Math.abs((((this.vel.getAngle() + Math.PI)) % (2.0 * Math.PI)) - e.vel.getAngle()) <= Math.PI
+					* 0.25 || this.vel.magnitude == 0 || e.vel.magnitude == 0) { // opposite
+				// System.out.println("headon collision");
+				double tempMag = e.vel.getMagnitude();
+				e.vel = new Velocity(-1 * e.vel.getxDir(), -1 * e.vel.getyDir(), this.vel.getMagnitude());
+				this.vel = new Velocity(-1 * this.vel.getxDir(), -1 * this.vel.getyDir(), tempMag);
 			} else {
-				e.move();
+				this.vel = new Velocity(-1 * this.vel.getxDir(), -1 * this.vel.getyDir(), this.vel.getMagnitude());
+				e.vel = new Velocity(-1 * e.vel.getxDir(), -1 * e.vel.getyDir(), e.vel.getMagnitude());
 			}
-		} while (this.hitbox.intersects(e.hitbox));
+			do {
+				if (new Random().nextBoolean()) {
+					this.move();
+				} else {
+					e.move(); //results in teleporty bullshit, please fix maybe
+				}
+			} while (this.hitbox.intersects(e.hitbox));
+		}
 	}
 	
 	public int outOfBoundsRemove(int xBound, int yBound){
