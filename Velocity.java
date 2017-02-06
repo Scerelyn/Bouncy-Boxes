@@ -2,7 +2,7 @@ package bouncysquares;
 
 public class Velocity {
 	double xDir,yDir,magnitude; //+-1 or 0 only for direction
-	
+	final static Velocity ZERO_VECTOR = new Velocity(0,0);
 	//this constructor should not be used for initializing entities, use the angle/magnitude one
 	public Velocity(double xDir, double yDir, double mag){
 		if(xDir > 1 || xDir < -1 || yDir > 1 || yDir < -1){
@@ -56,5 +56,14 @@ public class Velocity {
 		return magnitude;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof Velocity){
+			if(Math.abs( ((Velocity) obj).getMagnitude() - this.getMagnitude() ) <= 1e-10
+					&& Math.abs( ((Velocity) obj).getAngle() - this.getAngle() ) <= 1e-10){
+				return true;
+			}
+		}
+		return false;
+	}
 }

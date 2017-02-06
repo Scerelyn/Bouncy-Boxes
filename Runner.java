@@ -19,9 +19,6 @@ public class Runner {
 		v.getEntityList().add(new Entity(200,0,boxLength,boxLength,Color.CYAN));
 		v.getEntityList().get(0).setVelocity( new Velocity(Math.random() * 2*Math.PI,2) );
 		
-		System.out.println(v.getEntityList().get(0).getVel().getxDir() * v.getEntityList().get(0).getVel().getMagnitude());
-		System.out.println( (int)v.getEntityList().get(0).getHitbox().getCenterX() + ( (int)(v.getEntityList().get(0).getVel().getxDir()*v.getEntityList().get(0).getVel().getMagnitude()) )*20);
-		
 //		v.getEntityList().add(new Entity(200,800,boxLength,boxLength,Color.ORANGE));
 //		v.getEntityList().get(1).setVelocity( new Velocity(Math.random() * 2*Math.PI,15) );
 //		
@@ -68,10 +65,10 @@ public class Runner {
 				v.getEntityList().add( new Entity((int)v.getMousePlaced().getX(), (int)v.getMousePlaced().getY(), boxLength, boxLength, v.getMousePlacedColor()) );
 				double lineLength = Point2D.distance(me.getX()-12, me.getY()-45, v.getMousePlaced().getCenterX(), v.getMousePlaced().getCenterY());
 				double mag = lineLength/Visual.DRAWN_VECTOR_MAGNITUDE_MULTIPLIER;
-				double vectX = Math.abs( me.getX()-12 - v.getMousePlaced().getCenterX())/lineLength;
-				double vectY = Math.abs( me.getY()-45 - v.getMousePlaced().getCenterY())/lineLength;
+				double vectX = Math.abs( me.getX()-12 - v.getMousePlaced().getCenterX())*lineLength;
+				double vectY = Math.abs( me.getY()-45 - v.getMousePlaced().getCenterY())*lineLength;
 				double angle = Math.atan( vectY/vectX );
-				if(Double.isNaN(vectX) &&  Double.isNaN(vectY)){
+				if(Double.isNaN(angle) || (Double.isNaN(vectX) &&  Double.isNaN(vectY))){
 					v.getEntityList().get( v.getEntityList().size()-1 ).setVelocity( new Velocity(0, 0) );
 				} else if(vectX < 1e-14){ //result in atan being NaN if this is true, or almost NaN, since division by zero
 					if(vectY < 0){

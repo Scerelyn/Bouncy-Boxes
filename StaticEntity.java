@@ -19,7 +19,7 @@ public class StaticEntity extends Entity{
 	 * Inmovable object react. Should be used with a non static entity sent in. Shouldnt break since move() and setVelocity do nothing() 
 	 */
 	@Override
-	public void collisionReact(Entity e) {
+	public boolean collisionReact(Entity e) {
 		//imagine spending 4 hours pondering on a 5 line solution, yeesh
 		double eY = e.hitbox.getCenterY();
 		if(eY > this.hitbox.getY() + this.hitbox.getHeight() || eY < this.hitbox.getY()){ //below or above
@@ -31,5 +31,6 @@ public class StaticEntity extends Entity{
 		do {
 			e.move();
 		} while (this.hitbox.intersects(e.hitbox));
+		return false;
 	}
 }

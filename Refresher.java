@@ -12,11 +12,14 @@ public class Refresher extends TimerTask{
 	}
 	@Override
 	public void run() { //collision detects, moves entities, then redraws the window
+		ArrayList<Entity> toRemove = new ArrayList<>();
 		for(int i = 0; i < vis.getEntityList().size(); i++){ //this is collision detecting
 			for(int j = i+1; j < vis.getEntityList().size(); j++){
 				if(vis.getEntityList().get(i).getHitbox().intersects( vis.getEntityList().get(j).getHitbox() )){
 					vis.getHits().add( new CollisionFX(vis.getEntityList().get(i).getHitbox(), vis.getEntityList().get(j).getHitbox()) );
-					vis.getEntityList().get(i).collisionReact( vis.getEntityList().get(j) );
+					if (vis.getEntityList().get(i).collisionReact( vis.getEntityList().get(j) )){
+						toRemove.add(vis.getEntityList().get(j));
+					}
 				}
 			}
 		}
@@ -27,7 +30,6 @@ public class Refresher extends TimerTask{
 				}
 			}
 		}
-		ArrayList<Entity> toRemove = new ArrayList<>();
 		for(Entity e : vis.getEntityList()){ //out of bounds checking
 			if(e.outOfBoundsRemove(vis.getMaxWidth(), vis.getMaxWidth()) == 1){
 				toRemove.add(e);
