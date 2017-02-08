@@ -16,8 +16,8 @@ public class Runner {
 		Visual v = new Visual(1200,1200);
 		int boxLength = 90;
 
-		v.getEntityList().add(new Entity(200,0,boxLength,boxLength,Color.CYAN));
-		v.getEntityList().get(0).setVelocity( new Velocity(30*Math.PI/180,2) );
+//		v.getEntityList().add(new Entity(200,0,boxLength,boxLength,Color.CYAN));
+//		v.getEntityList().get(0).setVelocity( new Velocity(30*Math.PI/180,2) );
 		
 //		v.getEntityList().add(new Entity(200,800,boxLength,boxLength,Color.ORANGE));
 //		v.getEntityList().get(1).setVelocity( new Velocity(Math.random() * 2*Math.PI,15) );
@@ -91,7 +91,6 @@ public class Runner {
 				}
 				v.setMousePlaced(null);
 				v.setMousePlacedLine(null);
-				System.out.println( v.getEntityList().get( v.getEntityList().size()-1 ).getVel() );
 			}
 		});
 		jf.addMouseMotionListener(new MouseMotionListener(){

@@ -38,13 +38,17 @@ public class Entity {
 	 * @param e The entitity that this collided with
 	 * @return if an infinite loop is detected, true is returned. No infinite loop false is returned
 	 */
-	public boolean collisionReact(Entity e) {
+	public boolean collisionReact(Entity e) { //TODO add separate clause so unmoving entities assume the angle of what hit it
 		if (e instanceof StaticEntity) { //make sure to use the right override
 			e.collisionReact(this);
 			return false;
 		} else {
 			// the first two ifs are for momentum, somewhat (hardly) accurate. Didnt feel like dealing with momentum AND kinetic energy i dont have mass implemented yet
-			if (Math.abs(this.vel.getAngle() - e.vel.getAngle()) <= Math.PI * 0.25) { // same direction angle
+			if(e.vel.equals(Velocity.ZERO_VECTOR) || this.vel.equals(Velocity.ZERO_VECTOR)){
+				Velocity temp = this.vel;
+				this.setVelocity(e.vel);
+				e.setVelocity(temp);
+			} else if (Math.abs(this.vel.getAngle() - e.vel.getAngle()) <= Math.PI * 0.25) { // same direction angle
 				// System.out.println("rear end collision");
 				double tempMag = e.vel.getMagnitude();
 				e.vel = new Velocity(e.vel.getxDir(), e.vel.getyDir(), this.vel.getMagnitude());
@@ -64,13 +68,13 @@ public class Entity {
 				if (new Random().nextBoolean()) {
 					this.move(); //moves if the boxes are still intersecting. really shit way to go about it because of the teleporty bullshit this results in
 					counter++;
-					if(counter >= 100){
+					if(counter >= 300){
 						return true;
 					}
 				} else {
 					e.move(); 
 					counter++;
-					if(counter >= 100){
+					if(counter >= 300){
 						return true;
 					}
 				}
