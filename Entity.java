@@ -34,8 +34,8 @@ public class Entity {
 	}
 	
 	/**
-	 * Called when a collision has been detected. This method does not check for collsions, This does the reaction part
-	 * @param e The entitity that this collided with
+	 * Called when a collision has been detected. This method does not check for collisions, This does the reaction part
+	 * @param e The entity that this collided with
 	 * @return if an infinite loop is detected, true is returned. No infinite loop false is returned
 	 */
 	public boolean collisionReact(Entity e) { //TODO add separate clause so unmoving entities assume the angle of what hit it
@@ -43,12 +43,12 @@ public class Entity {
 			e.collisionReact(this);
 			return false;
 		} else {
-			// the first two ifs are for momentum, somewhat (hardly) accurate. Didnt feel like dealing with momentum AND kinetic energy i dont have mass implemented yet
+			// the first three ifs are for momentum, somewhat (hardly) accurate. Didnt feel like dealing with momentum AND kinetic energy i dont have mass implemented yet
 			if(e.vel.equals(Velocity.ZERO_VECTOR) || this.vel.equals(Velocity.ZERO_VECTOR)){
 				Velocity temp = this.vel;
 				this.setVelocity(e.vel);
 				e.setVelocity(temp);
-			} else if (Math.abs(this.vel.getAngle() - e.vel.getAngle()) <= Math.PI * 0.25) { // same direction angle
+			} else if (Math.abs(this.vel.getAngle() - e.vel.getAngle()) <= Math.PI * 0.51) { // same direction angle
 				// System.out.println("rear end collision");
 				double tempMag = e.vel.getMagnitude();
 				e.vel = new Velocity(e.vel.getxDir(), e.vel.getyDir(), this.vel.getMagnitude());

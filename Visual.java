@@ -9,20 +9,22 @@ public class Visual extends JComponent {
 	private StaticEntity[] boundries = new StaticEntity[4];
 	private ArrayList<Entity> things = new ArrayList<>();
 	private ArrayList<CollisionFX> hits = new ArrayList<>();
-	private final int maxWidth, maxHeight;
+	private final int maxWidth, maxHeight,xOff,yOff;
 	public static final int DRAWN_VECTOR_MAGNITUDE_MULTIPLIER = 20;
 	private Rectangle mousePlaced = null;
 	private Color mousePlacedColor = null;
 	private Line2D mousePlacedLine = null;
 	
-	public Visual(int width, int height){
-		this.setBounds(0, 0, width, height);
+	public Visual(int xOff, int yOff, int width, int height){
+		this.setBounds(xOff, yOff, width, height);
+		this.xOff = xOff;
+		this.yOff = yOff;
 		this.maxHeight = height;
 		this.maxWidth = width;
-		this.boundries[0] = new StaticEntity((int)(-width*0.3), 0, (int)(width*0.3), height, Color.DARK_GRAY); //left
-		this.boundries[1] = new StaticEntity(0, (int)(-height*0.3), width, (int)(height*0.3), Color.DARK_GRAY); //top
-		this.boundries[2] = new StaticEntity(width, 0, (int)(width*0.3), height, Color.DARK_GRAY); //right
-		this.boundries[3] = new StaticEntity(0, height, width, (int)(height*0.3), Color.DARK_GRAY); //bottom
+		this.boundries[0] = new StaticEntity((int)(-width*0.3) + xOff, yOff, (int)(width*0.3), height, Color.DARK_GRAY); //left
+		this.boundries[1] = new StaticEntity(xOff, (int)(-height*0.3) + yOff, width, (int)(height*0.3), Color.DARK_GRAY); //top
+		this.boundries[2] = new StaticEntity(width + xOff, yOff, (int)(width*0.3), height, Color.DARK_GRAY); //right
+		this.boundries[3] = new StaticEntity(xOff, height + yOff, width, (int)(height*0.3), Color.DARK_GRAY); //bottom
 	}
 	
 	@Override
@@ -30,7 +32,7 @@ public class Visual extends JComponent {
 		Graphics2D g2 = (Graphics2D)g;
 		
 		g2.setPaint(Color.gray);
-		g2.fill( new Rectangle(0,0,this.maxWidth,this.maxHeight) ); //background
+		g2.fill( new Rectangle(xOff,yOff,this.maxWidth,this.maxHeight) ); //background
 		
 		g2.setPaint(Color.DARK_GRAY); //boundry static entities
 		for(StaticEntity se : boundries){

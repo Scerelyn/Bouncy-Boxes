@@ -13,39 +13,12 @@ import javax.swing.*;
 public class Runner {
 
 	public static void main(String[] args) {
-		Visual v = new Visual(1200,1200);
+		Visual v = new Visual(20,20,1200,1200);
 		int boxLength = 90;
-
-//		v.getEntityList().add(new Entity(200,0,boxLength,boxLength,Color.CYAN));
-//		v.getEntityList().get(0).setVelocity( new Velocity(30*Math.PI/180,2) );
-		
-//		v.getEntityList().add(new Entity(200,800,boxLength,boxLength,Color.ORANGE));
-//		v.getEntityList().get(1).setVelocity( new Velocity(Math.random() * 2*Math.PI,15) );
-//		
-//		v.getEntityList().add(new Entity(200,400,boxLength,boxLength,Color.YELLOW));
-//		v.getEntityList().get(2).setVelocity( new Velocity(Math.random() * 2*Math.PI,2) );
-//
-//		v.getEntityList().add(new Entity(400,800,boxLength,boxLength,Color.GREEN));
-//		v.getEntityList().get(3).setVelocity( new Velocity(Math.random() * 2*Math.PI,10) );
-//		
-//		v.getEntityList().add(new Entity(400,400,boxLength,boxLength,Color.BLUE));
-//		v.getEntityList().get(4).setVelocity( new Velocity(Math.random() * 2*Math.PI,2) );
-//		
-//		v.getEntityList().add(new Entity(200,200,boxLength,boxLength,Color.PINK));
-//		v.getEntityList().get(5).setVelocity( new Velocity(Math.random() * 2*Math.PI,7) );
-//
-//		v.getEntityList().add(new Entity(500,400,boxLength,boxLength,Color.RED));
-//		v.getEntityList().get(6).setVelocity( new Velocity(Math.random() * 2*Math.PI,5) );
-//
-//		v.getEntityList().add(new Entity(500,500,boxLength,boxLength,Color.MAGENTA));
-//		v.getEntityList().get(7).setVelocity( new Velocity(Math.random() * 2*Math.PI,0) );
-//		
-//		v.getEntityList().add(new StaticEntity(700,700,boxLength,boxLength,Color.ORANGE.darker().darker().darker()));
-		
 		
 		v.setVisible(true);
 		Refresher rf = new Refresher(v,16);
-		JFrame jf = new JFrame("Test");
+		JFrame jf = new JFrame("Bouncy");
 		jf.addMouseListener(new MouseAdapter(){
 			
 			/**
