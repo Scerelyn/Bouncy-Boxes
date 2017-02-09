@@ -111,7 +111,7 @@ public class Entity {
 		int upRightY = this.getY();
 		int downRightX = (int)this.getHitbox().getMaxX();
 		int downRightY = (int)this.getHitbox().getMaxY();
-		double percTolerance = 0.3; //percent in decimal for of how much of a side needs to be outside before deletion
+		double percTolerance = 0.5; //percent in decimal for of how much of a side needs to be outside before deletion
 		
 		if(	upLeftX < 0 - this.hitbox.getWidth()*percTolerance || downLeftX < 0 - this.hitbox.getWidth()*percTolerance || upRightX < 0 - this.hitbox.getWidth()*percTolerance || downRightX < 0 - this.hitbox.getWidth()*percTolerance ||
 				upLeftX > xBound + this.hitbox.getWidth()*percTolerance || downLeftX > xBound + this.hitbox.getWidth()*percTolerance || upRightX > xBound + this.hitbox.getWidth()*percTolerance || downRightX > xBound + this.hitbox.getWidth()*percTolerance ||

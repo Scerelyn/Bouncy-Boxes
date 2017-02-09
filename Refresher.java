@@ -36,7 +36,14 @@ public class Refresher extends TimerTask{
 		for(Entity e : vis.getEntityList()){ //boundary collision detect. intersect is a cool method
 			for(StaticEntity se : vis.getBoundries()){
 				if(e.getHitbox().intersects(se.getHitbox())){
-					se.collisionReact(e);
+					if (se.collisionReact(e)) {
+						e.incrementStuck();
+						if (e.getStuckFrames() > Entity.STUCK_FRAME_LIMIT) {
+							toRemove.add(e);
+						}
+					} else {
+						e.resetStuck();
+					}
 				}
 			}
 		}
