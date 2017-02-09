@@ -12,6 +12,9 @@ public class Entity {
 	protected Color color;
 	protected Velocity vel;
 	protected int x,y;
+	private int stuckFrames = 0;
+	public static int STUCK_FRAME_LIMIT = 60;
+	
 	
 	public Entity(int x, int y, int width, int height, Color c){
 		this.hitbox = new Rectangle(x,y,width,height);
@@ -48,37 +51,47 @@ public class Entity {
 				Velocity temp = this.vel;
 				this.setVelocity(e.vel);
 				e.setVelocity(temp);
+			} else if (Math.abs( (this.vel.getAngle() % (0.5 * Math.PI)) - (e.vel.getAngle() % (0.5 * Math.PI)) ) <= Math.PI * 0.5 
+					|| this.vel.magnitude == 0 || e.vel.magnitude == 0) { // opposite
+				// System.out.println("headon collision");
+				double tempMag = e.vel.getMagnitude();
+				e.vel = new Velocity(-1 * e.vel.getxDir(), -1 * e.vel.getyDir(), this.vel.getMagnitude());
+				this.vel = new Velocity(-1 * this.vel.getxDir(), -1 * this.vel.getyDir(), tempMag);
 			} else if (Math.abs(this.vel.getAngle() - e.vel.getAngle()) <= Math.PI * 0.51) { // same direction angle
 				// System.out.println("rear end collision");
 				double tempMag = e.vel.getMagnitude();
 				e.vel = new Velocity(e.vel.getxDir(), e.vel.getyDir(), this.vel.getMagnitude());
 				this.vel = new Velocity(this.vel.getxDir(), this.vel.getyDir(), tempMag);
-			} else if (Math.abs((((this.vel.getAngle() + Math.PI)) % (2.0 * Math.PI)) - e.vel.getAngle()) <= Math.PI
-					* 0.25 || this.vel.magnitude == 0 || e.vel.magnitude == 0) { // opposite
-				// System.out.println("headon collision");
-				double tempMag = e.vel.getMagnitude();
-				e.vel = new Velocity(-1 * e.vel.getxDir(), -1 * e.vel.getyDir(), this.vel.getMagnitude());
-				this.vel = new Velocity(-1 * this.vel.getxDir(), -1 * this.vel.getyDir(), tempMag);
 			} else {
 				this.vel = new Velocity(-1 * this.vel.getxDir(), -1 * this.vel.getyDir(), this.vel.getMagnitude());
 				e.vel = new Velocity(-1 * e.vel.getxDir(), -1 * e.vel.getyDir(), e.vel.getMagnitude());
 			}
 			int counter = 0;
-			do {
-				if (new Random().nextBoolean()) {
-					this.move(); //moves if the boxes are still intersecting. really shit way to go about it because of the teleporty bullshit this results in
-					counter++;
-					if(counter >= 300){
-						return true;
-					}
-				} else {
-					e.move(); 
-					counter++;
-					if(counter >= 300){
-						return true;
-					}
-				}
-			} while (this.hitbox.intersects(e.hitbox));
+//			do {
+//				if (new Random().nextBoolean()) {
+//					this.move(); //moves if the boxes are still intersecting. really shit way to go about it because of the teleporty bullshit this results in
+//					counter++;
+//					if(counter >= 300){
+//						return true;
+//					}
+//				} else {
+//					e.move(); 
+//					counter++;
+//					if(counter >= 300){
+//						return true;
+//					}
+//				}
+//			} while (this.hitbox.intersects(e.hitbox));
+			
+			if(this.hitbox.intersects(e.hitbox)){
+				this.vel = new Velocity(this.vel.getxDir(),this.vel.getyDir(), this.vel.getMagnitude()*3);
+				e.vel = new Velocity(e.vel.getxDir(),e.vel.getyDir(), e.vel.getMagnitude()*3);
+				this.move();
+				e.move();
+				this.vel = new Velocity(this.vel.getxDir(),this.vel.getyDir(), this.vel.getMagnitude()/3);
+				e.vel = new Velocity(e.vel.getxDir(), e.vel.getyDir(), e.vel.getMagnitude()/3);
+				return true;
+			}
 			return false;
 		}
 	}
@@ -143,6 +156,17 @@ public class Entity {
 	public Rectangle getShadow() {
 		return shadow;
 	}
+
+	public int getStuckFrames() {
+		return stuckFrames;
+	}
+
+	public void incrementStuck(){
+		this.stuckFrames++;
+	}
 	
+	public void resetStuck(){
+		this.stuckFrames = 0;
+	}
 	
 }

@@ -18,7 +18,17 @@ public class Refresher extends TimerTask{
 				if(vis.getEntityList().get(i).getHitbox().intersects( vis.getEntityList().get(j).getHitbox() )){
 					vis.getHits().add( new CollisionFX(vis.getEntityList().get(i).getHitbox(), vis.getEntityList().get(j).getHitbox()) );
 					if (vis.getEntityList().get(i).collisionReact( vis.getEntityList().get(j) )){
-						toRemove.add(vis.getEntityList().get(j));
+						vis.getEntityList().get(i).incrementStuck();
+						vis.getEntityList().get(j).incrementStuck();
+						if(vis.getEntityList().get(i).getStuckFrames() > Entity.STUCK_FRAME_LIMIT){
+							toRemove.add(vis.getEntityList().get(i));
+						}
+						if(vis.getEntityList().get(j).getStuckFrames() > Entity.STUCK_FRAME_LIMIT){
+							toRemove.add(vis.getEntityList().get(i));
+						}
+					} else {
+						vis.getEntityList().get(i).resetStuck();
+						vis.getEntityList().get(j).resetStuck();
 					}
 				}
 			}

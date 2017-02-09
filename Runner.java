@@ -14,8 +14,7 @@ public class Runner {
 
 	public static void main(String[] args) {
 		Visual v = new Visual(20,20,1200,1200);
-		int boxLength = 90;
-		
+		int boxLength = 90;		
 		v.setVisible(true);
 		Refresher rf = new Refresher(v,16);
 		JFrame jf = new JFrame("Bouncy");
@@ -82,7 +81,7 @@ public class Runner {
 		});
 		jf.add(v);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setBounds(0, 0, v.getMaxWidth()+50, v.getMaxHeight()+60);
+		jf.setBounds(0, 0, v.getMaxWidth()+100, v.getMaxHeight()+100);
 		jf.setVisible(true);
 	}
 
