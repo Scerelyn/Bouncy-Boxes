@@ -27,10 +27,9 @@ public class StaticEntity extends Entity{
 		} else { //on one of the sides
 			e.vel = new Velocity(-1 * e.vel.getxDir(), e.vel.getyDir(), e.vel.getMagnitude());
 		}
-		
-		do {
-			e.move();
-		} while (this.hitbox.intersects(e.hitbox));
+		if(e.hitbox.intersects(this.hitbox)){
+			return true;
+		}
 		return false;
 	}
 }
