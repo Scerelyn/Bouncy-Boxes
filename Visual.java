@@ -34,12 +34,12 @@ public class Visual extends JComponent {
 		g2.setPaint(Color.gray);
 		g2.fill( new Rectangle(xOff,yOff,this.maxWidth,this.maxHeight) ); //background
 		
-		g2.setPaint(Color.DARK_GRAY); //boundry static entities
+		g2.setPaint(Color.DARK_GRAY); //boundary static entities
 		for(StaticEntity se : boundries){
 			g2.fill(se.getVisible());
 		}
 		
-		for(Entity e : things){ //each actaully entity
+		for(Entity e : things){ //each actually entity
 			g2.setPaint(Color.BLACK.brighter().brighter());
 			g2.fill(e.getShadow());
 			g2.setPaint(e.getColor());

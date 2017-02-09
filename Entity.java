@@ -41,7 +41,7 @@ public class Entity {
 	 * @param e The entity that this collided with
 	 * @return if an infinite loop is detected, true is returned. No infinite loop false is returned
 	 */
-	public boolean collisionReact(Entity e) { //TODO add separate clause so unmoving entities assume the angle of what hit it
+	public boolean collisionReact(Entity e) {
 		if (e instanceof StaticEntity) { //make sure to use the right override
 			e.collisionReact(this);
 			return false;

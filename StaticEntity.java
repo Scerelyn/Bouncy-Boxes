@@ -16,7 +16,7 @@ public class StaticEntity extends Entity{
 	public void move(){}
 	
 	/**
-	 * Inmovable object react. Should be used with a non static entity sent in. Shouldnt break since move() and setVelocity do nothing() 
+	 * Immovable object react. Should be used with a non static entity sent in. Shouldnt break since move() and setVelocity do nothing() 
 	 */
 	@Override
 	public boolean collisionReact(Entity e) {
