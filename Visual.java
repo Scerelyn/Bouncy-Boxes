@@ -1,7 +1,7 @@
 package bouncysquares;
 
 import java.awt.*;
-import java.awt.geom.Line2D;
+import java.awt.geom.*;
 import java.util.*;
 import javax.swing.*;
 

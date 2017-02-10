@@ -1,12 +1,8 @@
 package bouncysquares;
 
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
 
 import javax.swing.*;
 
@@ -30,7 +26,7 @@ public class Runner {
 			}
 			
 			/**
-			 * Actaully places the box, taking in visual data and turing it into data that Velocity can use. Obnoxious trig happens here
+			 * Actually places the box, taking in visual data and turning it into data that Velocity can use. Obnoxious trig happens here
 			 */
 			@Override
 			public void mouseReleased(MouseEvent me){

@@ -1,11 +1,6 @@
 package bouncysquares;
 
-import java.awt.Color;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.geom.Point2D;
-import java.util.Random;
+import java.awt.*;
 
 public class Entity {
 	protected Rectangle hitbox,visible,shadow;
