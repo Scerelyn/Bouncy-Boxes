@@ -42,18 +42,16 @@ public class Entity {
 			return false;
 		} else {
 			// the first three ifs are for momentum, somewhat (hardly) accurate. Didnt feel like dealing with momentum AND kinetic energy i dont have mass implemented yet
-			if(e.vel.equals(Velocity.ZERO_VECTOR) || this.vel.equals(Velocity.ZERO_VECTOR)){
+			if(e.vel.equals(Velocity.ZERO_VECTOR) || this.vel.equals(Velocity.ZERO_VECTOR)){ //moving hits nonmoving, vectors swap
 				Velocity temp = this.vel;
 				this.setVelocity(e.vel);
 				e.setVelocity(temp);
 			} else if (Math.abs( (this.vel.getAngle() % (0.5 * Math.PI)) - (e.vel.getAngle() % (0.5 * Math.PI)) ) <= Math.PI * 0.5 
 					|| this.vel.magnitude == 0 || e.vel.magnitude == 0) { // opposite
-				// System.out.println("headon collision");
 				double tempMag = e.vel.getMagnitude();
 				e.vel = new Velocity(-1 * e.vel.getxDir(), -1 * e.vel.getyDir(), this.vel.getMagnitude());
 				this.vel = new Velocity(-1 * this.vel.getxDir(), -1 * this.vel.getyDir(), tempMag);
 			} else if (Math.abs(this.vel.getAngle() - e.vel.getAngle()) <= Math.PI * 0.51) { // same direction angle
-				// System.out.println("rear end collision");
 				double tempMag = e.vel.getMagnitude();
 				e.vel = new Velocity(e.vel.getxDir(), e.vel.getyDir(), this.vel.getMagnitude());
 				this.vel = new Velocity(this.vel.getxDir(), this.vel.getyDir(), tempMag);
@@ -61,23 +59,8 @@ public class Entity {
 				this.vel = new Velocity(-1 * this.vel.getxDir(), -1 * this.vel.getyDir(), this.vel.getMagnitude());
 				e.vel = new Velocity(-1 * e.vel.getxDir(), -1 * e.vel.getyDir(), e.vel.getMagnitude());
 			}
-			int counter = 0;
-//			do {
-//				if (new Random().nextBoolean()) {
-//					this.move(); //moves if the boxes are still intersecting. really shit way to go about it because of the teleporty bullshit this results in
-//					counter++;
-//					if(counter >= 300){
-//						return true;
-//					}
-//				} else {
-//					e.move(); 
-//					counter++;
-//					if(counter >= 300){
-//						return true;
-//					}
-//				}
-//			} while (this.hitbox.intersects(e.hitbox));
-			
+			this.move();
+			e.move();
 			if(this.hitbox.intersects(e.hitbox)){
 				this.vel = new Velocity(this.vel.getxDir(),this.vel.getyDir(), this.vel.getMagnitude()*3);
 				e.vel = new Velocity(e.vel.getxDir(),e.vel.getyDir(), e.vel.getMagnitude()*3);
